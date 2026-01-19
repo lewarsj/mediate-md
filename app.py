@@ -250,7 +250,7 @@ with input_col:
 
             st.session_state.messages.append(ai_message)
 
-            st.experimental_rerun()
+            
 
 # -----------------------------------------------------
 # FOOTER
