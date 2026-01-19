@@ -158,21 +158,22 @@ def generate_medical_diagram(description: str):
 # -----------------------------------------------------
 # TEXT RESPONSE HANDLER (GPT-4o)
 # -----------------------------------------------------
-def generate_ai_response(user_input: str):
-    messages_payload = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        *st.session_state.messages,
-        {"role": "user", "content": user_input},
-    ]
-
+def generate_ai_response(user_input):
     response = client.responses.create(
         model="gpt-4o",
-        messages=messages_payload,
-        max_output_tokens=500
+        input=[
+            {
+                "role": "system",
+                "content": "You are an experienced medical attending teaching a student through clinical cases. Be conversational, clear, and always end with a concrete recommendation."
+            },
+            {
+                "role": "user",
+                "content": user_input
+            }
+        ]
     )
 
-    ai_text = response.output_text
-    return ai_text
+    return response.output_text
 
 
 # -----------------------------------------------------
